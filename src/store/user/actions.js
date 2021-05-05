@@ -31,12 +31,14 @@ export const logOut = () => {
   return { type: LOG_OUT }
 }
 
-export const signUp = (name, email, password) => {
+export const signUp = (name, email, password, scuderia) => {
+  // eslint-disable-next-line consistent-return
   // eslint-disable-next-line consistent-return
   return async (dispatch, getState) => {
     dispatch(appLoading('user'))
     // const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
     // input validation
+
     if (!name)
       return dispatch(
         showMessageWithTimeout('danger', true, 'please enter a name')
@@ -49,11 +51,16 @@ export const signUp = (name, email, password) => {
       return dispatch(
         showMessageWithTimeout('danger', true, 'please enter a password')
       )
+    if (!scuderia)
+      return dispatch(
+        showMessageWithTimeout('danger', true, 'please enter a scuderia')
+      )
     try {
       const response = await axios.post(`${apiUrl}/signup`, {
-        name,
         email,
         password,
+        name,
+        scuderia,
       })
       dispatch(loginSuccess(response.data))
       dispatch(appDoneLoading())
@@ -131,5 +138,3 @@ export const getUserWithStoredToken = (token) => {
     }
   }
 }
-
-export default login

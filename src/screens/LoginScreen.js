@@ -8,7 +8,8 @@ import Header from '../components/Header'
 import Button from '../components/Button'
 import TextInput from '../components/TextInput'
 import BackButton from '../components/BackButton'
-import login from '../store/user/actions'
+// eslint-disable-next-line import/no-named-as-default
+import { login } from '../store/user/actions'
 import { theme } from '../core/theme'
 
 export default function LoginScreen({ navigation }) {

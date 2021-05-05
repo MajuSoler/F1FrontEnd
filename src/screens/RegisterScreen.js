@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { View, StyleSheet, TouchableOpacity, Picker } from 'react-native'
 import { Text } from 'react-native-paper'
+// eslint-disable-next-line import/no-named-as-default
+import { signUp } from '../store/user/actions'
 import Background from '../components/Background'
 import Logo from '../components/Logo'
 import Header from '../components/Header'
@@ -11,22 +14,28 @@ import { theme } from '../core/theme'
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 import { nameValidator } from '../helpers/nameValidator'
+import { scuderiaValidator } from '../helpers/scuderiaValidator'
 
 export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState({ value: '', error: '' })
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
-
+  const [scuderia, setScuderia] = useState({ value: '', error: '' })
+  const dispatch = useDispatch()
   const onSignUpPressed = () => {
     const nameError = nameValidator(name.value)
     const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
+    const scuderiaError = scuderiaValidator(scuderia.value)
     if (emailError || passwordError || nameError) {
       setName({ ...name, error: nameError })
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
+      setScuderia({ ...scuderia, error: scuderiaError })
       return
     }
+    dispatch(signUp(name.value, email.value, password.value, scuderia.value))
+
     navigation.reset({
       index: 0,
       routes: [{ name: 'Dashboard' }],
@@ -67,6 +76,26 @@ export default function RegisterScreen({ navigation }) {
         errorText={password.error}
         secureTextEntry
       />
+
+      <Picker
+        selectedValue={scuderia}
+        style={{ height: 50, width: 150 }}
+        onValueChange={(itemValue) =>
+          setScuderia({ value: itemValue, error: '' })
+        }
+      >
+        <Picker.Item label="Choose a Scuderia" value="" />
+        <Picker.Item label="Alfa Romeo" value="Alfa Romeo" />
+        <Picker.Item label="AlphaTauri" value="AlphaTauri" />
+        <Picker.Item label="Aston Martin" value="Aston Martin" />
+        <Picker.Item label="Ferrari" value="Ferrari" />
+        <Picker.Item label="Haas" value="Haas" />
+        <Picker.Item label="McLaren" value="McLaren" />
+        <Picker.Item label="Mercedes" value="Mercedes" />
+        <Picker.Item label="Red Bull" value="Red Bull" />
+        <Picker.Item label="Williams" value="Williams" />
+      </Picker>
+
       <Button
         mode="contained"
         onPress={onSignUpPressed}

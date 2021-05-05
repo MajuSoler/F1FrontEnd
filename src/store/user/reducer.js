@@ -5,6 +5,7 @@ const initialState = {
   token: null,
   name: null,
   email: null,
+  scuderia: null,
 }
 
 export default (state = initialState, action) => {
