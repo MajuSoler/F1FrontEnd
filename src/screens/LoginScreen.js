@@ -18,7 +18,6 @@ export default function LoginScreen({ navigation }) {
   const dispatch = useDispatch()
 
   const onLoginPressed = () => {
-    console.log('this is the email and password', email, password)
     dispatch(login(email, password))
 
     navigation.reset({

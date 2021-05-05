@@ -88,7 +88,7 @@ export const login = (email, password) => async (dispatch, getState) => {
       email,
       password,
     })
-    console.log('this is the response', response)
+
     dispatch(loginSuccess(response.data))
 
     dispatch(appDoneLoading())
