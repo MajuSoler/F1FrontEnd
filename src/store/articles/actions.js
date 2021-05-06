@@ -15,12 +15,16 @@ const informationSuccess = (articles) => {
   }
 }
 
-export const fetch_sucess = () => {
+export const fetch_sucess = (token) => {
   return async (dispatch, getState) => {
     dispatch(appLoading('Articles'))
 
     try {
-      const response = await axios.get(`${apiUrl}/news`, {})
+      const response = await axios.get(`${apiUrl}/news`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       const articles = response.data.articles
       dispatch(informationSuccess(articles))
 
