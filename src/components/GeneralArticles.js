@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { ScrollView, View, ActivityIndicator } from 'react-native'
+import {
+  SafeAreaView,
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  StatusBar,
+  ScrollView,
+  ActivityIndicator,
+  Image,
+} from 'react-native'
 
 import Background from './Background'
 import Header from './Header'
@@ -11,7 +21,18 @@ import { selectToken } from '../store/user/selectors'
 import { appLoading } from '../store/appState/selectors'
 import { selectArticles } from '../store/articles/selectors'
 import { fetch_sucess } from '../store/articles/actions'
-import PreviewOfArticle from './PreviewOfArticle'
+
+const ArticleInfo = ({ title, author, description, urlToImage }) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{'Title : ' + title}</Text>
+    <Text style={styles.title}>{'Author : ' + author}</Text>
+    <Text style={styles.title}>{'description : ' + description}</Text>
+    <Image
+      source={urlToImage}
+      style={{ width: '100%', height: 160, marginBottom: 30 }}
+    />
+  </View>
+)
 
 export default function GeneralArticles({ navigation }) {
   const token = useSelector(selectToken)
@@ -28,8 +49,19 @@ export default function GeneralArticles({ navigation }) {
   }, [token])
 
   useEffect(() => {
-    setArticlesSelected(articles)
+    setArticlesSelected(articles.articles)
   }, [articles])
+  const renderItem = ({ item }) => (
+    <ArticleInfo
+      title={item.title}
+      author={item.author}
+      description={item.description}
+      urlToImage={item.urlToImage}
+    />
+  )
+  const SeparatorComponent = () => {
+    return <View style={styles.separatorLine} />
+  }
 
   return (
     <Background>
@@ -42,16 +74,13 @@ export default function GeneralArticles({ navigation }) {
             style={{ marginBottom: 30 }}
           />
         ) : (
-          <ScrollView>
-            {articlesSelected.articles.map((article, index) => (
-              <PreviewOfArticle
-                key={index}
-                title={article.title}
-                author={article.author}
-                url={article.urlToImage}
-              />
-            ))}
-          </ScrollView>
+          <SafeAreaView style={styles.container}>
+            <FlatList
+              data={articlesSelected}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.index}
+            />
+          </SafeAreaView>
         )}
       </Paragraph>
 
@@ -61,3 +90,23 @@ export default function GeneralArticles({ navigation }) {
     </Background>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  item: {
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 20,
+  },
+  separatorLine: {
+    height: 1,
+    backgroundColor: 'plum',
+    paddingTop: 2,
+  },
+})
