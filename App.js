@@ -13,6 +13,8 @@ import {
   Dashboard,
 } from './src/screens'
 
+import Article from './src/screens/Article'
+
 const Stack = createStackNavigator()
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="Article" component={Article} />
+
         <Stack.Screen
           name="ResetPasswordScreen"
           component={ResetPasswordScreen}

@@ -1,10 +1,11 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, Button } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import GeneralArticles from '../components/GeneralArticles'
+import SpecificArticle from '../components/SpecificArticle'
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <GeneralArticles />
@@ -12,21 +13,22 @@ function HomeScreen() {
   )
 }
 
-function SettingsScreen() {
+function FriendsScreen({ navigation, title }) {
+  console.log(title, 'this is the title')
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
+      {/* <SpecificArticle /> */}
     </View>
   )
 }
 
 const Tab = createBottomTabNavigator()
 
-export default function Dashboard({ navigation }) {
+export default function Dashboard() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen name="News" component={HomeScreen} />
+      <Tab.Screen name="FriendsScreen" component={FriendsScreen} />
     </Tab.Navigator>
   )
 }

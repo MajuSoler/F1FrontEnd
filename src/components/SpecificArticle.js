@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-// import { Navigation } from 'react-native-navigation'
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { useNavigation } from '@react-navigation/native'
 import {
   SafeAreaView,
   View,
@@ -21,14 +19,35 @@ import Background from './Background'
 import Paragraph from './Paragraph'
 import Button from './Button'
 
-// import Article from '../screens/Article'
-
 import { selectToken } from '../store/user/selectors'
 import { appLoading } from '../store/appState/selectors'
 import { selectArticles } from '../store/articles/selectors'
 import { fetch_sucess } from '../store/articles/actions'
 
-export default function GeneralArticles() {
+const ArticleInfo = ({
+  title,
+  author,
+  description,
+  urlToImage,
+  navigation,
+}) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{'Title : ' + title}</Text>
+    <Text style={styles.title}>{'Author : ' + author}</Text>
+    <Text style={styles.title}>{'description : ' + description}</Text>
+    <Image
+      source={{ uri: urlToImage }}
+      style={{ width: '100%', height: 160, marginBottom: 30 }}
+    />
+    <TouchableOpacity
+      onPress={() => navigation.navigate('Friends', { paramKey: { title } })}
+    >
+      <Text style={styles.link}>Read the full article</Text>
+    </TouchableOpacity>
+  </View>
+)
+
+export default function SpecificArticle({ navigation }) {
   const token = useSelector(selectToken)
   const articles = useSelector(selectArticles)
   const loading = useSelector(appLoading)
@@ -52,31 +71,6 @@ export default function GeneralArticles() {
       description={item.description}
       urlToImage={item.urlToImage}
     />
-  )
-
-  const ArticleInfo = ({
-    title,
-    author,
-    description,
-    urlToImage,
-    navigation,
-    Article,
-  }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{'Title : ' + title}</Text>
-      <Text style={styles.title}>{'Author : ' + author}</Text>
-      <Text style={styles.title}>{'description : ' + description}</Text>
-      <Image
-        source={{ uri: urlToImage }}
-        style={{ width: '100%', height: 160, marginBottom: 30 }}
-      />
-      <TouchableOpacity onPress={() => navigation.navigate(Article)}>
-        <Text style={styles.link}>Read more</Text>
-      </TouchableOpacity>
-      {/* <TouchableOpacity onPress={() => navigation.navigate('Article')}>
-        <Text style={styles.link}>Read the full article</Text>
-      </TouchableOpacity> */}
-    </View>
   )
 
   return (
