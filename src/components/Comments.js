@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
+
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigation } from '@react-navigation/native'
+// import { Navigation } from 'react-native-navigation'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 import {
   SafeAreaView,
   View,
@@ -19,68 +22,55 @@ import Background from './Background'
 import Paragraph from './Paragraph'
 import Button from './Button'
 
+// import Article from '../screens/Article'
+
 import { selectToken } from '../store/user/selectors'
 import { appLoading } from '../store/appState/selectors'
 import { selectArticles } from '../store/articles/selectors'
-import { fetch_sucess } from '../store/articles/actions'
+import { fetch_comments } from '../store/comments/actions'
+import { selectComments } from '../store/comments/selectors'
 
-const ArticleInfo = ({
-  title,
-  author,
-  description,
-  urlToImage,
-  navigation,
-  content,
-}) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{'Title : ' + title}</Text>
-    <Text style={styles.title}>{'Author : ' + author}</Text>
-    <Text style={styles.title}>{'description : ' + description}</Text>
-    <Image
-      source={{ uri: urlToImage }}
-      style={{ width: '100%', height: 160, marginBottom: 30 }}
-    />
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate('Friends', {
-          paramKey: { title, author, urlToImage, content },
-        })
-      }
-    >
-      <Text style={styles.link}>Read the full article</Text>
-    </TouchableOpacity>
-  </View>
-)
-
-export default function SpecificArticle({ navigation }) {
+export default function GeneralComments(url) {
   const token = useSelector(selectToken)
   const articles = useSelector(selectArticles)
+  const comments = useSelector(selectComments)
   const loading = useSelector(appLoading)
+  const URL = { url }
 
-  const [articlesSelected, setArticlesSelected] = useState([])
+  const [commentsSelected, setCommentsSelected] = useState([])
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (token !== null || loading === false) {
-      dispatch(fetch_sucess(token))
+    if (token !== null) {
+      dispatch(fetch_comments(token, URL))
     }
   }, [token])
 
   useEffect(() => {
-    setArticlesSelected(articles.articles)
-  }, [articles])
-  const renderItem = ({ item }) => (
-    <ArticleInfo
-      title={item.title}
-      author={item.author}
-      description={item.description}
-      urlToImage={item.urlToImage}
-    />
+    setCommentsSelected(comments.comments)
+  }, [comments])
+  console.log(commentsSelected, 'I really love')
+  const renderItem = ({ item }) => <CommentInfo comment={item.comment} />
+  const CommentInfo = ({ comment }) => (
+    <View style={styles.item}>
+      {/* <Text style={styles.author}>The author{author}</Text> */}
+      <Text style={styles.text}>The comment{comment}</Text>
+    </View>
   )
 
   return (
-    <View style={styles.container}>
-      <Header>News!</Header>
+    <View>
+      <Text>I was correctly called</Text>
+      <SafeAreaView
+        style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+      >
+        <FlatList
+          data={commentsSelected}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </SafeAreaView>
+      {/* <Header>News!</Header>
       <Paragraph>
         {loading ? (
           <ActivityIndicator
@@ -97,7 +87,7 @@ export default function SpecificArticle({ navigation }) {
             />
           </SafeAreaView>
         )}
-      </Paragraph>
+      </Paragraph> */}
     </View>
   )
 }
@@ -115,7 +105,7 @@ const styles = StyleSheet.create({
     padding: 10,
     alignSelf: 'center',
     width: 400,
-    height: 600,
+    height: 100,
   },
   button: {
     alignSelf: 'center',
@@ -128,6 +118,16 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+  },
+  author: {
+    fontSize: 25,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  text: {
+    fontSize: 20,
+    alignItems: 'center',
+    marginBottom: 10,
   },
   title: {
     fontSize: 20,
