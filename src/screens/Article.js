@@ -26,12 +26,12 @@ export default function Articles({ route }) {
   return (
     // <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' margin= 5px  }}>
     <View style={styles.container}>
-      <View style={styles.containerArticle}>
+      <View>
         <Text style={styles.title}>{route.params.paramKey.title}</Text>
         {/* <Text style={styles.author}>{route.params.paramKey.author}</Text> */}
         <Text style={styles.text}>{route.params.paramKey.description}</Text>
       </View>
-      <View style={styles.containerComments}>
+      <View>
         <GeneralComments url={route.params.paramKey.url} />
       </View>
     </View>
@@ -42,16 +42,16 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
     borderWidth: 0.5,
     borderColor: 'grey',
     borderRadius: 10,
     marginTop: 30,
     padding: 15,
-    alignSelf: 'center',
+    // alignSelf: 'center',
     width: '100%',
-    height: '100%',
+    height: '40%',
   },
   containerArticle: {
     display: 'flex',
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     // flex: 1,
     width: '100%',
-    height: '60%',
+    height: '100',
   },
   button: {
     alignSelf: 'center',
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   item: {
-    padding: 20,
+    padding: 10,
     marginVertical: 8,
     marginHorizontal: 16,
   },

@@ -47,53 +47,91 @@ export default function GeneralComments(url) {
   }, [token])
 
   useEffect(() => {
-    setCommentsSelected(comments.comments)
+    setCommentsSelected(comments.comments[0].comments)
   }, [comments])
-  console.log(commentsSelected, 'I really love')
-  const renderItem = ({ item }) => <CommentInfo comment={item.comment} />
-  const CommentInfo = ({ comment }) => (
+
+  const renderItem = ({ item }) => (
+    <CommentInfo comment={item.comment} author={item.user.name} />
+  )
+  const CommentInfo = ({ comment, author }) => (
     <View style={styles.item}>
-      {/* <Text style={styles.author}>The author{author}</Text> */}
-      <Text style={styles.text}>The comment{comment}</Text>
+      <Text style={styles.author}>{comment}</Text>
+      <Text style={styles.author}>{author}</Text>
     </View>
   )
 
   return (
-    <View>
-      <Text>I was correctly called</Text>
-      <SafeAreaView
-        style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-      >
-        <FlatList
-          data={commentsSelected}
-          renderItem={renderItem}
-          keyExtractor={(item, index) => index.toString()}
+    <View style={styles.container}>
+      {loading ? (
+        <ActivityIndicator
+          size="large"
+          color="#c1262c"
+          style={{ marginBottom: 30 }}
         />
-      </SafeAreaView>
-      {/* <Header>News!</Header>
-      <Paragraph>
-        {loading ? (
-          <ActivityIndicator
-            size="large"
-            color="#c1262c"
-            style={{ marginBottom: 30 }}
+      ) : (
+        <SafeAreaView
+          // style={styles.containerComments}
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+        >
+          <FlatList
+            data={commentsSelected}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
           />
-        ) : (
-          <SafeAreaView style={styles.container}>
-            <FlatList
-              data={articlesSelected}
-              renderItem={renderItem}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          </SafeAreaView>
-        )}
-      </Paragraph> */}
+        </SafeAreaView>
+      )}
     </View>
   )
+
+  // return (
+  //   <View>
+  //     <Text>I was correctly called</Text>
+  //     <SafeAreaView
+  //       style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+  //     >
+  //       <FlatList
+  //         data={commentsSelected}
+  //         renderItem={renderItem}
+  //         keyExtractor={(item, index) => index.toString()}
+  //       />
+  //     </SafeAreaView>
+  //     {/* <Header>News!</Header>
+  //     <Paragraph>
+  //       {loading ? (
+  //         <ActivityIndicator
+  //           size="large"
+  //           color="#c1262c"
+  //           style={{ marginBottom: 30 }}
+  //         />
+  //       ) : (
+  //         <SafeAreaView style={styles.container}>
+  //           <FlatList
+  //             data={articlesSelected}
+  //             renderItem={renderItem}
+  //             keyExtractor={(item, index) => index.toString()}
+  //           />
+  //         </SafeAreaView>
+  //       )}
+  //     </Paragraph> */}
+  //   </View>
+  // )
 }
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
+    // backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // borderWidth: 0.5,
+    // borderColor: 'grey',
+    // borderRadius: 10,
+    padding: 10,
+    alignSelf: 'center',
+    // width: 400,
+    height: 200,
+  },
+  containerComments: {
     display: 'flex',
     backgroundColor: '#fff',
     alignItems: 'center',
@@ -101,11 +139,12 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: 'grey',
     borderRadius: 10,
-    marginTop: 50,
-    padding: 10,
+    marginTop: 0,
+    padding: 15,
     alignSelf: 'center',
-    width: 400,
-    height: 100,
+    flex: 1,
+    width: '100%',
+    height: '200',
   },
   button: {
     alignSelf: 'center',
