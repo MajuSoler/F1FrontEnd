@@ -16,9 +16,8 @@ const informationSuccess = (comments) => {
 }
 
 export const fetch_comments = (token, articleURL) => {
-  console.log(articleURL.url, ' i am the backend')
   const ArticleURL = encodeURIComponent(`${articleURL.url}`)
-  console.log('I am supposed to be in the front and encoded', ArticleURL)
+
   return async (dispatch, getState) => {
     dispatch(appLoading('Comments'))
 
@@ -27,7 +26,6 @@ export const fetch_comments = (token, articleURL) => {
         `${apiUrl}/allcommentsbtarticle/${ArticleURL}`
       )
 
-      console.log(response.data.resposta.rows[0].comments, ' I am the response')
       dispatch(informationSuccess(response.data.resposta.rows[0].comments))
 
       dispatch(appDoneLoading())
