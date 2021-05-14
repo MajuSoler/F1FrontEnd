@@ -42,21 +42,26 @@ export default function GeneralComments(url) {
 
   useEffect(() => {
     if (token !== null) {
-      dispatch(fetch_comments(token, URL))
+      dispatch(fetch_comments(token, URL.url))
     }
   }, [token])
 
   useEffect(() => {
-    setCommentsSelected(comments.comments[0].comments)
+    setCommentsSelected(comments.comments)
   }, [comments])
 
   const renderItem = ({ item }) => (
-    <CommentInfo comment={item.comment} author={item.user.name} />
+    <CommentInfo
+      comment={item.comment}
+      author={item.user.name}
+      articleId={item.articleId}
+    />
   )
   const CommentInfo = ({ comment, author }) => (
     <View style={styles.item}>
       <Text style={styles.author}>{comment}</Text>
       <Text style={styles.author}>{author}</Text>
+      {/* <Text style={styles.author}>{articleId}</Text> */}
     </View>
   )
 

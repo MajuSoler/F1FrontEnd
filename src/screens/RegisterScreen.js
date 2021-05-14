@@ -79,7 +79,7 @@ export default function RegisterScreen({ navigation }) {
 
       <Picker
         selectedValue={scuderia}
-        style={{ height: 50, width: 150 }}
+        style={{ height: 50, width: 'auto' }}
         onValueChange={(itemValue) =>
           setScuderia({ value: itemValue, error: '' })
         }
@@ -100,6 +100,7 @@ export default function RegisterScreen({ navigation }) {
         mode="contained"
         onPress={onSignUpPressed}
         style={{ marginTop: 24 }}
+        color="red"
       >
         Sign Up
       </Button>

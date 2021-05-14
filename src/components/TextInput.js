@@ -8,7 +8,8 @@ export default function TextInput({ errorText, description, ...props }) {
     <View style={styles.container}>
       <Input
         style={styles.input}
-        selectionColor={theme.colors.primary}
+        // selectionColor={theme.colors.primary}
+        selectionColor="red"
         underlineColor="transparent"
         mode="outlined"
         {...props}
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 13,
-    color: theme.colors.secondary,
+    color: 'red',
     paddingTop: 8,
   },
   error: {

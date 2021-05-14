@@ -9,18 +9,18 @@ export default function StartScreen({ navigation }) {
   return (
     <Background>
       <Logo />
-      <Header>Login Template</Header>
-      <Paragraph>
-        The easiest way to start with your amazing application.
-      </Paragraph>
+      <Header>F1 Fans</Header>
+      <Paragraph>The best place to meet other fans</Paragraph>
       <Button
         mode="contained"
+        color="red"
         onPress={() => navigation.navigate('LoginScreen')}
       >
         Login
       </Button>
       <Button
         mode="outlined"
+        color="red"
         onPress={() => navigation.navigate('RegisterScreen')}
       >
         Sign Up

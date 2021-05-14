@@ -1,5 +1,5 @@
 //  import AsyncStorage from '@react-native-async-storage/async-storage'
-import { INFORMATION_SUCCESS } from './actions'
+import { INFORMATION_SUCCESS, LOCATED_ARTICLE } from './actions'
 
 const initialState = {
   articles: [],
