@@ -1,49 +1,18 @@
-# React Native Login Template
+  This is a Social media plataform for F1 Fans!
+  Using react native I build an APP that alows users to read and interact with articles about our beloved sport. 
 
-This repo is proudly sponsored by:
+In the future, more futures will be added. Such as: 
+Profile page for each user. 
+Chat page. 
 
-<a href="https://reactnativemarket.com/" rel="nofollow" target="_blank">
-  <img src="https://raw.githubusercontent.com/venits/react-native-market/master/assets/banner.png" width="280"><br />
-  React Native Templates & Starter Kits and Apps for easier start.
-</a>
+Below are some images:
 
-## Demo
 
-https://simple-login-template.web.app
+![image](https://github.com/MajuSoler/F1FrontEnd/blob/main/src/assets/LoginF1.png)
+![image](https://github.com/MajuSoler/F1FrontEnd/blob/main/src/assets/Login2F1.png)
+![image](https://github.com/MajuSoler/F1FrontEnd/blob/main/src/assets/portfolio.png)
 
-## How to use?
 
-1. Download or clone this repo.
 
-2. Install dependencies.
 
-```js
-npm install
-// or
-yarn install
-```
 
-3. Run project on iOS / Android.
-
-```js
- npm run ios // npm run android
- // or
- yarn ios // yarn android
-```
-
-## Preview
-
-![homescreen](https://raw.githubusercontent.com/venits/react-native-market/master/assets/simple-login-template/homescreen.png)
-![login](https://raw.githubusercontent.com/venits/react-native-market/master/assets/simple-login-template/login.png)
-![register](https://raw.githubusercontent.com/venits/react-native-market/master/assets/simple-login-template/register.png)
-![forgot](https://raw.githubusercontent.com/venits/react-native-market/master/assets/simple-login-template/forgot.png)
-![dashboard](https://raw.githubusercontent.com/venits/react-native-market/master/assets/simple-login-template/dashboard.png)
-
-## Support
-
-In case of any questions or problems, please contact me at:
-[hello@reactnativemarket.com](mailto:hello@reactnativemarket.com)
-
-### Happy Coding 🚀
-
-### [ReactNativeMarket.com](http://reactnativemarket.com/)
